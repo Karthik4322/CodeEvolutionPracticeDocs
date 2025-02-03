@@ -19,7 +19,8 @@ import './App.css';
 // import StateWithObject from './Hooks/StateWithObject.js';
 // import SideEffect from './Lifecycle/SideEffect.js';
 // import EffectExample from './Hooks/EffectExample';
-import EffectCondRendering from './Hooks/EffectCondRendering';
+// import EffectCondRendering from './Hooks/EffectCondRendering';
+import AboutPage from './components/organicstore/AboutPage';
 function App() {
   return (
     <div className="App">
@@ -55,7 +56,8 @@ function App() {
       {/* <StateWithObject></StateWithObject> */}
       {/* <SideEffect></SideEffect> */}
       {/* <EffectExample></EffectExample> */}
-      <EffectCondRendering></EffectCondRendering>
+      {/* <EffectCondRendering></EffectCondRendering> */}
+      <AboutPage></AboutPage>
     </div>
   );
 }
