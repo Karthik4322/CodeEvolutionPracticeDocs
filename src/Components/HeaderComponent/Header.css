@@ -1,0 +1,20 @@
+.custom-navbar-collapse {
+    position: absolute;
+    top: 60px; /* Adjust based on your Navbar height */
+    right: 0;
+    width: auto;
+    background-color: #343a40; /* Match navbar color */
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  /* Custom styles for Navbar Toggler */
+  .custom-navbar-toggler {
+    border: none !important;
+    background: transparent !important;
+  }
+  
+  /* Ensure dropdown aligns properly */
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
