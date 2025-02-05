@@ -42,6 +42,9 @@ import AllProducts from './Components/UserComponents/AllProducts';
 import ContactUs from './Components/UserComponents/ContactUs';
 import { Cart } from 'react-bootstrap-icons';
 import ProductPage from './Components/UserComponents/ProductPage'
+import ProductDetail from './Components/ProductComponents/ProductDetail'
+import ProductForm from './Components/ProductComponents/ProductForm'
+import ProductList from './Components/ProductComponents/ProductList'
 const App = () => {
   return (
     <Router>
@@ -53,6 +56,9 @@ const App = () => {
         <Route path="/" element={<ContactUs />} />
         <Route path="/" element={<Cart />} />
         <Route path="/" element={<ProductPage/>} />
+        <Route path="/" element={<ProductList/>}/>
+        <Route path="/" element={<ProductDetail/>}/>
+        <Route path="/" element={<ProductForm/>}/>
       </Routes>
       <Footer/>
     </Router>

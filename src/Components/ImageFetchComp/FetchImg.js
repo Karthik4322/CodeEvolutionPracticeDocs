@@ -4,37 +4,37 @@ function FetchImg() {
     const [productImages, setProductImages] = useState({
        
         fruits: {
-            kiwi: ".../productimages/kiwi.png"
-            lemon: ".../productimages/lemon.png"
-            mulberry: ".../productimages/mulberry.png"
-            strawberry: ".../productimages/strawberry.png"
-            apple: ".../productimages/apple.png"
-            banana: ".../productimages/banana.png"
+            kiwi: ".../productimages/kiwi.png",
+            lemon: ".../productimages/lemon.png",
+            mulberry: ".../productimages/mulberry.png",
+            strawberry: ".../productimages/strawberry.png",
+            apple: ".../productimages/apple.png",
+            banana: ".../productimages/banana.png",
             
           },
         vegetables: {
-          potato: ".../productimages/potato.png"
-          redonion: ".../productimages/redonion.png"
-          cucumber: ".../productimages/cucumber.png"
-          beetroot: ".../productimages/potato.png"
-          tomato: ".../productimages/potato.png"
-          carrot: ".../productimages/potato.png"
-          greenchilli: ".../productimages/greenchilli.png"
-          greenbell: ".../productimages/greenbell.png"
+          potato: ".../productimages/potato.png",
+          redonion: ".../productimages/redonion.png",
+          cucumber: ".../productimages/cucumber.png",
+          beetroot: ".../productimages/potato.png",
+          tomato: ".../productimages/potato.png",
+          carrot: ".../productimages/potato.png",
+          greenchilli: ".../productimages/greenchilli.png",
+          greenbell: ".../productimages/greenbell.png",
           
         },
         essentials: {
-            milk: ".../productimages/milk.png"
-            cookingoil: ".../productimages/cookingoil.png"
-            rice: ".../productimages/rice.png"
-            water: ".../productimages/water.png"
-            proteinpowder: ".../productimages/proteinpowder.png"
+            milk: ".../productimages/milk.png",
+            cookingoil: ".../productimages/cookingoil.png",
+            rice: ".../productimages/rice.png",
+            water: ".../productimages/water.png",
+            proteinpowder: ".../productimages/proteinpowder.png",
               
           },
           eggandmeat: {
-            chicken: ".../productimages/chicken.png"
-            egg: ".../productimages/egg.png"
-            fish: ".../productimages/fish.png"          
+            chicken: ".../productimages/chicken.png",
+            egg: ".../productimages/egg.png",
+            fish: ".../productimages/fish.png",   
           },
       });
     

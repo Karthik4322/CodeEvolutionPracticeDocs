@@ -1,127 +1,93 @@
 import React, { useState, useEffect } from 'react';
-import './css/ProductPage.css'; // Import CSS for styling
 
-const ProductPage = () => {
-  // State for products, search term, selected category, loading status, and cart
-  const [products, setProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [cart, setCart] = useState([]); // Cart state
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Login state
+function ProductPage() {
+    const [products, setProducts] = useState([]);
+    const [productImages] = useState({
+        fruits: {
+            kiwi: "../productimages/kiwi.png",
+            lemon: "../productimages/lemon.png",
+            mulberry: "../productimages/mulberry.png",
+            strawberry: "../productimages/strawberry.png",
+            apple: "../productimages/apple.png",
+            banana: "../productimages/banana.png",
+        },
+        vegetables: {
+            potato: "../productimages/potato.png",
+            redonion: "../productimages/redonion.png",
+            cucumber: "../productimages/cucumber.png",
+            beetroot: "../productimages/beetroot.png",
+            tomato: "../productimages/tomato.png",
+            carrot: "../productimages/carrot.png",
+            greenchilli: "../productimages/greenchilli.png",
+            greenbell: "../productimages/greenbell.png",
+        },
+        essentials: {
+            milk: "../productimages/milk.png",
+            cookingoil: "../productimages/cookingoil.png",
+            rice: "../productimages/rice.png",
+            water: "../productimages/water.png",
+            proteinpowder: "../productimages/proteinpowder.png",
+        },
+        eggandmeat: {
+            chicken: "../productimages/chicken.png",
+            egg: "../productimages/egg.png",
+            fish: "../productimages/fish.png",
+        },
+    });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  // Fetch products from the backend API
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('http://localhost:5062/api/products'); // Replace with your backend API endpoint
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch("http://localhost:5062/api/products");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch products");
+                }
+                const data = await response.json();
+                setProducts(data.map((product) => ({
+                    ProductId: product.ProductId,
+                    Title: product.Title,
+                    Description: product.Description,
+                    Price: product.Price,
+                    Weight: product.Weight,
+                    Images: product.Images,
+                    Category: product.GetProductCategoryKey(),
+                })));
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    fetchProducts();
-  }, []);
+        fetchProducts();
+    }, []);
 
-  // Handle search input change
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
-  // Handle category dropdown change
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
+    return (
+        <div className="product-container">
+            {products.map((product) => {
+                console.log("Product details:", product);
+                const imageSrc =
+                    productImages[product.Category]?.[product.Title.toLowerCase().replace(/\s+/g, '')] || // Check if category & product exist in state, remove spaces for product name
+                    (product.Images && product.Images.length > 0 ? product.Images[0] : '/images/default.jpg'); // Use backend image if available, otherwise fallback
 
-  // Handle adding a product to the cart
-  const handleAddToCart = (product) => {
-    setCart([...cart, product]); // Add product to cart
-    alert(`${product.title} added to cart!`);
-  };
-
-  // Handle viewing the cart
-  const handleViewCart = () => {
-    if (!isLoggedIn) {
-      alert('Please log in to view your cart.'); // Prompt to log in
-    } else {
-      // Redirect to cart page or show cart details navigation of login page
-      alert('Redirecting to cart page...');
-    }
-  };
-
-  // Filter products based on search term and selected category
-  const filteredProducts = products.filter((product) => {
-    const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
-
-  // Display loading or error messages
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
-
-  if (error) {
-    return <div className="error">Error: {error}</div>;
-  }
-
-  return (
-    <div className="product-page">
-      {/* Search Bar */}
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-      </div>
-
-      {/* Category Dropdown */}
-      <div className="category-filter">
-        <label htmlFor="category">Category: </label>
-        <select id="category" value={selectedCategory} onChange={handleCategoryChange}>
-          <option value="All">All</option>
-          <option value="Fruits">Fruits</option>
-          <option value="Dairy">Dairy</option>
-          <option value="Vegetables">Vegetables</option>
-          {/* Add more categories as needed */}
-        </select>
-      </div>
-
-      {/* Product Cards */}
-      <div className="product-list">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <div key={product.productId} className="product-card">
-              <img src={product.thumbnail} alt={product.title} />
-              <h3>{product.title}</h3>
-              <p>₹{product.price.toFixed(2)}</p>
-              <div className="button-group">
-                <button
-                  onClick={() => handleAddToCart(product)}
-                  disabled={cart.some((item) => item.productId === product.productId)} // Disable if product is in cart
-                >
-                  Add to Cart
-                </button>
-                <button onClick={handleViewCart}>View Cart</button>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="no-results">No products found.</div>
-        )}
-      </div>
-    </div>
-  );
-};
+                return (
+                    <div key={product.ProductId} className="card">
+                        <img src={imageSrc} alt={product.Title} />
+                        <h3>{product.Title}</h3>
+                        <p>{product.Description}</p>
+                        <p>Weight: {product.Weight}g</p>
+                        <p>Price: ₹{product.Price.toFixed(2)}</p>
+                        <p>Category: {product.Category}</p>
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
 
 export default ProductPage;
